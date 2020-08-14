@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+
+require 'metastasis'
+require 'optparse'
+
+options = {
+  config_file: './metastasis/config.yml',
+  definition_file: './metastasis/Radiograph',
+  timezone: 'Asia/Tokyo',
+  environment: 'development',
+}
+
+subtext = <<~HELP
+  Available subcommands are:
+    apply: apply queries to metabase
+HELP
+
+global = OptionParser.new do |opts|
+  opts.banner = 'Usage: metastasis [options] [subcommand [options]]'
+  opts.separator ''
+  opts.separator subtext
+  opts.version = Metastasis::VERSION
+end
+
+options_for_subcommands = {
+  apply: OptionParser.new do |opts|
+    opts.banner = 'Usage: apply [options]'
+    opts.on('-c', '--config-file CONFIG_FILE_PATH') do |v|
+      options[:config_file] = v
+    end
+    opts.on('-f', '--definition-file DEFINITON_FILE') do |v|
+      options[:definition_file] = v
+    end
+    opts.on('-t', '--timezone TIMEZONE') do |v|
+      options[:timezone] = v
+    end
+    opts.on('-e', '--environment ENVIRONMENT') do |v|
+      options[:environment] = v
+    end
+  end
+ }
+
+global.order!
+command = ARGV.shift&.to_sym
+if command.nil? || !options_for_subcommands.keys.include?(command)
+  STDERR.puts 'ERROR: no (such) subcommand'
+  STDERR.puts global
+  exit -1
+end
+options_for_subcommands[command].parse! ARGV
+
+Metastasis::Runner.new(options).send(command)
