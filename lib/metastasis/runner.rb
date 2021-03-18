@@ -6,6 +6,7 @@ module Metastasis
       @options = options
       @config = load_config_file[options[:environment]]
       @options = @options.merge(query_config: @config.delete('query_config')&.symbolize_keys || {})
+      @options = @options.merge(dashboard_config: @config.delete('dashboard_config')&.symbolize_keys || {})
 
       Time.zone = options[:timezone]
       ActiveRecord::Base.time_zone_aware_attributes = true

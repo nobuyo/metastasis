@@ -26,7 +26,7 @@ module Metastasis
 
       def register_dashboard(unique_id)
         unique_id = unique_id.to_s
-        dashboard_definition = DashboardDefinition.new(unique_id)
+        dashboard_definition = DashboardDefinition.new(unique_id, options)
 
         yield(dashboard_definition)
 
