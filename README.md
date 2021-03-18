@@ -53,8 +53,8 @@ It is just an example. These file or directory names can be changed.
 The format may change in the future.  
 Default config file name is `config.yml`. It contains the database connection information. Environments can be separated using the same format as `dayabase.yml` of `rails`.
 
-In addition, this is not included in the normal rails' database.yml, but you can give a default value to the query definition by writing a `query_config` section.
-This is useful when you want to specify common values across queries and different values for different environments, such as database_id as seen from metabase
+In addition, this is not included in the normal rails' database.yml, but you can give a default value to the query definition by writing `query_config` and `dashboard_config` section.
+This is useful when you want to specify common values across queries and different values for different environments, such as database_id as seen from metabase.
 
 ```yaml
 default: &default
@@ -73,6 +73,8 @@ development:
   database: metabase
   query_config:
     database_id: 1
+  dashboard_config:
+    collection_id: 13
 
 staging:
   <<: *default
@@ -80,7 +82,8 @@ staging:
   database: metabase
   query_config:
     database_id: 3
-
+  dashboard_config:
+    collection_id: 3
 (...)
 ```
 

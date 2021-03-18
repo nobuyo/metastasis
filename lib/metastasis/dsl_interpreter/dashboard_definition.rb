@@ -12,6 +12,10 @@ module Metastasis
         end
         @dashboard_cards = {}
         @parameters = {}
+
+        options[:dashboard_config].each do |k, v|
+          self.send(k, v)
+        end
       end
 
       %i[name creator_id collection_id].each do |n|
