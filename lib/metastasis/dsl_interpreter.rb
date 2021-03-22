@@ -7,7 +7,7 @@ module Metastasis
 
     def execute(dsl)
       ActiveRecord::Base.transaction do
-        Context.eval(dsl, options)
+        Context.eval(dsl, **options)
       end
     rescue ActiveRecord::RecordNotUnique
       raise 'Something is defined more than once'

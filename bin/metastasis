@@ -49,4 +49,4 @@ if command.nil? || !options_for_subcommands.keys.include?(command)
 end
 options_for_subcommands[command].parse! ARGV
 
-Metastasis::Runner.new(options).send(command)
+Metastasis::Runner.new(**options).send(command)
