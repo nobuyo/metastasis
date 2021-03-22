@@ -2,7 +2,7 @@ module Metastasis
   class Runner
     attr_reader :config, :options
 
-    def initialize(options)
+    def initialize(**options)
       @options = options
       @config = load_config_file[options[:environment]]
       @options = @options.merge(query_config: @config.delete('query_config')&.symbolize_keys || {})
@@ -17,7 +17,7 @@ module Metastasis
     def apply
       add_migration_ledger
       dsl = load_dsl
-      Metastasis::DSLInterpreter.new(options).execute(dsl)
+      Metastasis::DSLInterpreter.new(**options).execute(dsl)
     end
 
     private

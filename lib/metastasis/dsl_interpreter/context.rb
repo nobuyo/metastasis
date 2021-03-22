@@ -15,7 +15,7 @@ module Metastasis
 
       def register_card(unique_id)
         unique_id = unique_id.to_s
-        query_definition = QueryDefinition.new(unique_id, options)
+        query_definition = QueryDefinition.new(unique_id, **options)
 
         yield(query_definition)
 
@@ -26,7 +26,7 @@ module Metastasis
 
       def register_dashboard(unique_id)
         unique_id = unique_id.to_s
-        dashboard_definition = DashboardDefinition.new(unique_id, options)
+        dashboard_definition = DashboardDefinition.new(unique_id, **options)
 
         yield(dashboard_definition)
 
