@@ -3,7 +3,7 @@ module Metastasis
     class DashboardDefinition
       attr_accessor :dashboard, :tag, :dashboard_cards
 
-      def initialize(unique_id)
+      def initialize(unique_id, **options)
         @tag = Tag.find_or_initialize_by(target_type: 'Dashboard', name: unique_id)
         @dashboard = if @tag.persisted?
           Dashboard.find_by(id: @tag.target_id)
